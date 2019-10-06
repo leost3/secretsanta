@@ -25,11 +25,26 @@ const matches = new match(membersAndSpouses, membersNames);
 const drawns = matches.drawMatches();
 
 const findDrawns = new Draw(drawns);
-const myDraw = findDrawns.findDraw('leo');
 
-it('We can check if the consumer called the class constructor', () => {
-  expect(myDraw.picks).toMatch(/leo/);
-  expect(myDraw.picks).toMatch(/mafe/);
+it('member can not draw spouse or him/herself', () => {
+  const myDraw = findDrawns.findDraw('leo');
+
+  expect(myDraw.picks).not.toBe('leo');
+  expect(myDraw.picks).not.toBe('mafe');
+});
+
+it('member can not draw spouse or him/herself', () => {
+  const myDraw = findDrawns.findDraw('jojo');
+
+  expect(myDraw.picks).not.toBe('jojo');
+  expect(myDraw.picks).not.toBe('gabs');
+});
+
+it('member can not draw spouse or him/herself', () => {
+  const myDraw = findDrawns.findDraw('amanda');
+
+  expect(myDraw.picks).not.toBe('amanda');
+  expect(myDraw.picks).not.toBe('paijay');
 });
 
 // it('the picker cannot pick himself or wife', () => {

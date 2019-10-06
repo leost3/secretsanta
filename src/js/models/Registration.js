@@ -44,7 +44,7 @@ export default class Registration {
         };
         this.registeredMembers.push(familyMember);
       }
-      // this.addMemberToLocalStorage();
+      this.addMemberToLocalStorage();
     } else {
       return true;
     }

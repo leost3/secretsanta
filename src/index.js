@@ -5,7 +5,8 @@ import {
   displayMessage,
   clearMessage,
   whoDidIpick,
-  clearMyPick
+  clearMyPick,
+  clearMembers
 } from './js/views/drawMembers';
 import { match } from './js/models/Matches';
 import Draw from './js/models/Draws';
@@ -14,6 +15,11 @@ const state = {};
 
 window.addEventListener('load', () => {
   state.participants = new Registration();
+  state.participants.retrieveParticipantsFromLocalStorate();
+  if (state.participants.registeredMembers) {
+    renderParticipants(state.participants.registeredMembers);
+  }
+  console.log(state.participants.registeredMembers);
 });
 
 elements.registerForm.addEventListener('submit', e => {
@@ -74,7 +80,7 @@ elements.makeDraws.addEventListener('click', e => {
   // passes array of membersnames, and memberss names + spouses
   if (state.participants.registeredMembers.length > 1) {
     state.matches = new match(membersAndSpouses, membersNames);
-    state.matches.drawMatches();
+    state.matches.assignSantas();
     elements.icon.classList.add('draw-submited');
   } else {
     alert('At least two members have to be registered');
@@ -95,6 +101,8 @@ elements.seeDrawForm.addEventListener('submit', e => {
       clearMyPick();
       state.draws.findDraw(santa);
       whoDidIpick(`Congrats, your draw is: ${state.draws.myDraw.picks}`);
+      console.log(elements.seeDrawInput.innerHTML);
+      elements.seeDrawInput.value = '';
     } else {
       clearMyPick();
       whoDidIpick('Sorry, your name is not in the list');
@@ -103,4 +111,12 @@ elements.seeDrawForm.addEventListener('submit', e => {
     clearMyPick();
     whoDidIpick('Please submit the draw first');
   }
+});
+
+elements.resetBtn.addEventListener('click', e => {
+  e.preventDefault();
+  localStorage.clear();
+  state.participants.registeredMembers = [];
+  clearMyPick();
+  clearMembers();
 });

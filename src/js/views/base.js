@@ -9,5 +9,6 @@ export const elements = {
   seeDrawForm: document.querySelector('.seeDrawForm'),
   seeDrawInput: document.querySelector('.memberName'),
   messageBox: document.querySelector('.message-container'),
-  icon: document.querySelector('.icon.icon-checkmark2')
+  icon: document.querySelector('.icon.icon-checkmark2'),
+  resetBtn: document.querySelector('.restart')
 };

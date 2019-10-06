@@ -5,7 +5,7 @@ export const match = class Match {
     this.matches = {};
   }
 
-  drawMatches() {
+  assignSantas() {
     const membersArr = this.members;
     const shuffleArray = arr => arr.sort(() => Math.random() - 0.5);
     let shuffledArray = shuffleArray(membersArr);
@@ -26,6 +26,7 @@ export const match = class Match {
       return isCouple;
     };
 
+    // While in the shuffled array spouses are still paired, array will be shuffled again
     while (spousesDrawn(shuffledArray, this.memberAndSpouse).length) {
       shuffledArray = shuffleArray(shuffledArray);
       if (!spousesDrawn(shuffledArray, this.memberAndSpouse).length) break;
@@ -45,16 +46,16 @@ export const match = class Match {
     // console.log('FinalMatch', matches);
     // console.log('-----------------------------------------------------------');
     this.matches = matches;
-    // this.addMatchesToLocalStorage();
+    this.addMatchesToLocalStorage();
     return matches;
   }
 
-  // addMatchesToLocalStorage() {
-  //   localStorage.setItem('matches', JSON.stringify(this.matches));
-  // }
+  addMatchesToLocalStorage() {
+    localStorage.setItem('matches', JSON.stringify(this.matches));
+  }
 
-  // retrieveMatchesFromLocalStorage() {
-  //   const storage = JSON.parse(localStorage.getItem('matches'));
-  //   if (storage) this.matches = storage;
-  // }
+  retrieveMatchesFromLocalStorage() {
+    const storage = JSON.parse(localStorage.getItem('matches'));
+    if (storage) this.matches = storage;
+  }
 };
