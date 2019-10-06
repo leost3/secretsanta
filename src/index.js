@@ -12,14 +12,8 @@ import Draw from './js/models/Draws';
 
 const state = {};
 
-elements.registerInput.addEventListener('focus', e => {
-  // alert(this);
-});
-
 window.addEventListener('load', () => {
   state.participants = new Registration();
-  // state.participants.retrieveParticipantsFromLocalStorate();
-  // console.log(state.participants.registeredMembers);
 });
 
 elements.registerForm.addEventListener('submit', e => {
@@ -33,10 +27,9 @@ elements.registerForm.addEventListener('submit', e => {
       elements.radioHasSpouse.checked &&
       !elements.spouseNameInput.value.length
     ) {
-      console.log('Please type spouse');
       elements.spouseNameInput.classList.add('inputBlank');
     } else {
-      clearTimeout();
+      clearTimeout(clearMsg);
       clearMessage();
       const participants = state.participants.registerNewMember(
         memberName,
@@ -50,7 +43,7 @@ elements.registerForm.addEventListener('submit', e => {
         ? `${memberName} already registered`
         : messageMember;
       displayMessage(finalMessage);
-      setTimeout(clearMessage, 3000);
+      const clearMsg = setTimeout(clearMessage, 3000);
       elements.registerInput.value = '';
       elements.spouseNameInput.value = '';
       elements.registerInput.focus();
@@ -78,9 +71,6 @@ elements.makeDraws.addEventListener('click', e => {
     member => member.memberName
   );
 
-  console.log(membersAndSpouses);
-  console.log(membersNames);
-  console.log(state.participants.registeredMembers);
   // passes array of membersnames, and memberss names + spouses
   if (state.participants.registeredMembers.length > 1) {
     state.matches = new match(membersAndSpouses, membersNames);
@@ -93,21 +83,24 @@ elements.makeDraws.addEventListener('click', e => {
 
 elements.seeDrawForm.addEventListener('submit', e => {
   e.preventDefault();
-  const santa = elements.seeDrawInput.value.trim();
-  console.log(state.matches === undefined);
-  if (state.matches !== undefined) {
-    state.draws = new Draw(state.matches.matches);
-    if (santa.length) {
-      clearMyPick();
 
+  const santa = elements.seeDrawInput.value.trim();
+  const isSantaInTheList = state.participants.registeredMembers.find(
+    member => member.memberName === santa
+  );
+
+  if (state.matches !== undefined && santa.length > 0) {
+    if (isSantaInTheList !== undefined) {
+      state.draws = new Draw(state.matches.matches);
+      clearMyPick();
       state.draws.findDraw(santa);
-      whoDidIpick(state.draws.myDraw.picks);
+      whoDidIpick(`Congrats, your draw is: ${state.draws.myDraw.picks}`);
     } else {
-      console.log('type something');
+      clearMyPick();
+      whoDidIpick('Sorry, your name is not in the list');
     }
   } else {
     clearMyPick();
-
     whoDidIpick('Please submit the draw first');
   }
 });

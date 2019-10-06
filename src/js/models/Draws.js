@@ -11,8 +11,6 @@ export default class Draw {
   }
 
   findDraw(name) {
-    // console.log(this.draws);
-    // this.retrieveDrawsFromLocalStorage('matches');
     const myDraw = this.draws.find(draw => draw.santa === name);
     this.myDraw = myDraw;
     return myDraw;

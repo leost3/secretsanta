@@ -1,38 +1,36 @@
 export const match = class Match {
-  constructor(memberAndSpouse, spouse) {
+  constructor(memberAndSpouse, members) {
     this.memberAndSpouse = memberAndSpouse;
-    this.spouse = spouse;
+    this.members = members;
     this.matches = {};
-    // this.membersAndSpouses = membersAndSpouses;
-    // this.members = members;
   }
 
   drawMatches() {
-    const newArr = this.spouse;
+    const membersArr = this.members;
     const shuffleArray = arr => arr.sort(() => Math.random() - 0.5);
-    //
-    let shuffledArray = shuffleArray(newArr);
-    // console.log('sortedArr', shuffledArray);
+    let shuffledArray = shuffleArray(membersArr);
 
-    const spousesDrawn = (shuffledArray, member) => {
+    // Checks if spouses were side by side in the array
+    const spousesDrawn = (shuffledArray, members) => {
       const pairs = [];
+      const isCouple = [];
       for (let i = 0; i < shuffledArray.length - 1; i += 2) {
         pairs.push([shuffledArray[i], shuffledArray[i + 1]]);
       }
-      const isCouple = [];
       pairs.forEach(pair => {
-        const isPair = member.find(
+        const isPair = members.find(
           member => JSON.stringify(member) === JSON.stringify(pair)
         );
         if (isPair !== undefined) isCouple.push(isPair);
       });
       return isCouple;
     };
-    // console.log(spousesDrawn(shuffledArray, this.memberAndSpouse).length);
+
     while (spousesDrawn(shuffledArray, this.memberAndSpouse).length) {
       shuffledArray = shuffleArray(shuffledArray);
       if (!spousesDrawn(shuffledArray, this.memberAndSpouse).length) break;
     }
+
     const matches = shuffledArray.map((arr, i) => {
       if (i === shuffledArray.length - 1) i = -1;
       return {
@@ -51,16 +49,12 @@ export const match = class Match {
     return matches;
   }
 
-  shuffleArr(arr) {
-    arr.sort(() => Math.random() - 0.5);
-  }
+  // addMatchesToLocalStorage() {
+  //   localStorage.setItem('matches', JSON.stringify(this.matches));
+  // }
 
-  addMatchesToLocalStorage() {
-    localStorage.setItem('matches', JSON.stringify(this.matches));
-  }
-
-  retrieveMatchesFromLocalStorage() {
-    const storage = JSON.parse(localStorage.getItem('matches'));
-    if (storage) this.matches = storage;
-  }
+  // retrieveMatchesFromLocalStorage() {
+  //   const storage = JSON.parse(localStorage.getItem('matches'));
+  //   if (storage) this.matches = storage;
+  // }
 };

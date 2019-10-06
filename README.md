@@ -26,4 +26,9 @@ npm start
 npm test
 ```
 
-#
+## Model
+
+Model used MVC
+Registration.js is responsible for adding the members to the draw
+Matches.js matches the members and draw is made
+Draw.js checks who is the draw of who
