@@ -10,5 +10,6 @@ export const elements = {
   seeDrawInput: document.querySelector('.memberName'),
   messageBox: document.querySelector('.message-container'),
   icon: document.querySelector('.icon.icon-checkmark2'),
-  resetBtn: document.querySelector('.restart')
+  resetBtn: document.querySelector('.restart'),
+  drawMessage: document.querySelector('.draw-message')
 };

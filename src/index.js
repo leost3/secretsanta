@@ -6,7 +6,9 @@ import {
   clearMessage,
   whoDidIpick,
   clearMyPick,
-  clearMembers
+  clearMembers,
+  drawMessage,
+  clearDrawMessage
 } from './js/views/drawMembers';
 import { match } from './js/models/Matches';
 import Draw from './js/models/Draws';
@@ -60,8 +62,6 @@ elements.registerForm.addEventListener('submit', e => {
   } else {
     elements.registerInput.classList.add('inputBlank');
     elements.spouseNameInput.classList.add('inputBlank');
-
-    console.log('Please type something');
   }
 });
 
@@ -78,12 +78,16 @@ elements.makeDraws.addEventListener('click', e => {
   );
 
   // passes array of membersnames, and memberss names + spouses
-  if (state.participants.registeredMembers.length > 1) {
+  if (state.participants.registeredMembers.length > 2) {
     state.matches = new match(membersAndSpouses, membersNames);
     state.matches.assignSantas();
     elements.icon.classList.add('draw-submited');
+    drawMessage();
+    setTimeout(() => {
+      clearDrawMessage();
+    }, 2000);
   } else {
-    alert('At least two members have to be registered');
+    alert('At least three members have to be registered');
   }
 });
 
@@ -117,6 +121,8 @@ elements.resetBtn.addEventListener('click', e => {
   e.preventDefault();
   localStorage.clear();
   state.participants.registeredMembers = [];
+  elements.icon.classList.remove('draw-submited');
+
   clearMyPick();
   clearMembers();
 });

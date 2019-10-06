@@ -5,7 +5,11 @@ function displayParticipants(participant) {
         <li><h4>${participant.memberName}</h4></li>
     `;
 
-  elements.participantsView.insertAdjacentHTML('afterbegin', markup);
+  elements.participantsView.insertAdjacentHTML(
+    'beforeend',
+
+    markup
+  );
 }
 
 export const renderParticipants = registeredParticipants => {
@@ -32,10 +36,17 @@ export const whoDidIpick = myPick => {
     <h4>${myPick}</h4>
   </div>`;
 
-  elements.myPick.insertAdjacentHTML('afterbegin', markup);
+  elements.myPick.innerHTML = markup;
 };
 
 export const clearMyPick = () => {
   console.log('pick cleared');
   elements.myPick.innerHTML = '';
+};
+
+export const drawMessage = () => {
+  elements.drawMessage.innerHTML = 'A new Draw has been made';
+};
+export const clearDrawMessage = () => {
+  elements.drawMessage.innerHTML = '';
 };

@@ -1,22 +1,6 @@
 export default class Registration {
   constructor() {
-    this.registeredMembers = [
-      //   {
-      //     memberName: 'leo',
-      //     hasSpouse: true,
-      //     spouseName: 'mafe'
-      //   },
-      //   {
-      //     memberName: 'paijay',
-      //     hasSpouse: true,
-      //     spouseName: 'amanda'
-      //   }
-      //   {
-      //     memberName: 'amanda',
-      //     hasSpouse: true,
-      //     spouseName: 'paijay'
-      //   }
-    ];
+    this.registeredMembers = [];
   }
 
   registerNewMember(memberName, hasSpouse, spouseName) {

@@ -40,11 +40,6 @@ export const match = class Match {
       };
     });
 
-    // console.log('-----------------------------------------------------------');
-    // console.log('finalSortedArr', shuffledArray);
-    // console.log('->', spousesDrawn(shuffledArray, this.memberAndSpouse).length);
-    // console.log('FinalMatch', matches);
-    // console.log('-----------------------------------------------------------');
     this.matches = matches;
     this.addMatchesToLocalStorage();
     return matches;
