@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <link href="https://fonts.googleapis.com/css?family=Mountains+of+Christmas&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <header>
+      <h1>Welcome to Robinson's Secret Santa</h1>
+    </header>
+    <div class="main-section">
+
+    <div class="registration">
+      <form class="registrationForm" action="">
+        <div class="form-container">
+            <div class="member-name-container">
+                <label for="memberName" class="member-name">Enter you name:</label></br>
+                <input class="member" type="text" id="memberName" placeholder="Your name"/>
+              </div>
+              <div class="checkbox">
+                <label>Do you have a spouse?</label>
+                <input type="radio" name="hasSpouse" id="radioYesSpouse" />Yes
+                <input type="radio" name="hasSpouse" id="radioNoSpouse" checked />No </br>
+                <label for="spouseName" class="spouse-name">Spouse Name:</label></br>
+                <input type="text" class="inputSpouse" id="spouseName" placeholder="Your spouse's name"/>
+              </div>
+        </div>
+        
+        <button type="submit">Register </button>
+      </form>
+      <div class="message-container">
+          <!-- <h4>Leo and mafe registered</h4> -->
+        </div>
+        <div class="btn-draw-container">
+          <button class="makeDraws">Draw</button>
+          <svg class="icon icon-checkmark2"><use xlink:href="./css/symbol-defs.svg#icon-checkmark2"></use></svg>
+        </div>
+    </div>
+    <div class="draw-section">
+      <div class="draw-btns">
+        </br>
+      </div>
+        <div class="">
+          <ol class="participantsView">
+  
+          </ol>
+        
+        </div>
+    </div>
+    
+    <div class="seeDraw">
+      <form class="seeDrawForm" action="">
+        <div class="myPick-btns">
+          <input type="text" class="memberName" placeholder="Check your pick"/>
+          <button type="submit">Who did I pick?</button>
+        </div>
+      </form>
+      <div class="myPick">
+        <!-- <div class="myPick-box">
+          <h4>mafe</h4>
+        </div> -->
+      </div>
+    </div>
+  </div>
+
+    <!-- <script src="main.js"></script> -->
+  </body>
+</html>
