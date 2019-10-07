@@ -33,6 +33,42 @@ header {
   margin-top: 5%;
   box-shadow: 5px 5px #dbd8d8;
 }
+
+/* BUTTONS and INPUTS*/
+button,
+button:link,
+button:visited {
+  background-color: #4caf50; /* Green */
+  border: none;
+  color: white;
+  padding: 1rem 2.5rem;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1.6rem;
+  margin: 4px 2px;
+  cursor: pointer;
+  transition: all 0.5s;
+  border-radius: 3px;
+}
+
+button:active,
+button:focus {
+  outline: none;
+}
+
+button:hover {
+  background: red;
+}
+
+input {
+  padding: 8px 25px;
+}
+
+.inputBlank {
+  border: 1px solid red;
+}
+
 /* Registration */
 .registration {
   padding: 20px;
@@ -42,6 +78,16 @@ header {
   text-align: center;
   font-family: 'Roboto', sans-serif;
   background: #ffffff;
+}
+
+.inputSpouse,
+.spouse-name {
+  display: none;
+}
+
+input[id='radioYesSpouse']:checked ~ .inputSpouse,
+input[id='radioYesSpouse']:checked ~ .spouse-name {
+  display: inline-block;
 }
 
 .message-container {
@@ -65,52 +111,12 @@ header {
   display: none;
 }
 
+/* Draw-section */
 .draw-submited {
   display: inline-block;
 }
-
-/* BUTTONS */
-button {
-  background-color: #4caf50; /* Green */
-  border: none;
-  color: white;
-  padding: 1rem 2.5rem;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 1.6rem;
-  margin: 4px 2px;
-  cursor: pointer;
-  transition: all 0.5s;
-  border-radius: 3px;
-}
-
-button:hover {
-  background: red;
-}
-
-input {
-  padding: 8px 25px;
-}
-
-.inputBlank {
-  border: 1px solid red;
-}
-
-.box {
-  display: flex;
-  flex-direction: column;
-  flex: 0%;
-}
-
-.inputSpouse,
-.spouse-name {
-  display: none;
-}
-
-input[id='radioYesSpouse']:checked ~ .inputSpouse,
-input[id='radioYesSpouse']:checked ~ .spouse-name {
-  display: inline-block;
+.draw-message {
+  color: #4caf50;
 }
 
 .draw-section {
@@ -137,6 +143,21 @@ input[id='radioYesSpouse']:checked ~ .spouse-name {
   justify-content: center;
 }
 
+/* seeDraw section */
+
+.seeDrawForm {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 42px;
+}
+
+.seeDraw {
+  padding: 20px;
+  background: hsl(0, 0%, 100%);
+  width: 40%;
+}
+
 .myPick-btns {
   display: flex;
   flex-direction: column;
@@ -156,21 +177,6 @@ input[id='radioYesSpouse']:checked ~ .spouse-name {
   justify-content: center;
   margin-top: 5rem;
   animation: hanging-box 2s;
-}
-
-.seeDraw {
-  padding: 20px;
-  background: hsl(0, 0%, 100%);
-  width: 40%;
-}
-
-.seeDrawForm {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  /* background: black; */
-  margin-top: 42px;
 }
 
 @keyframes hanging-box {

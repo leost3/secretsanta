@@ -40,7 +40,6 @@ export const whoDidIpick = myPick => {
 };
 
 export const clearMyPick = () => {
-  console.log('pick cleared');
   elements.myPick.innerHTML = '';
 };
 

@@ -1,4 +1,4 @@
-export const match = class Match {
+export default class Match {
   constructor(memberAndSpouse, members) {
     this.memberAndSpouse = memberAndSpouse;
     this.members = members;
@@ -53,4 +53,4 @@ export const match = class Match {
     const storage = JSON.parse(localStorage.getItem('matches'));
     if (storage) this.matches = storage;
   }
-};
+}

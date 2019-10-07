@@ -10,7 +10,7 @@ import {
   drawMessage,
   clearDrawMessage
 } from './js/views/drawMembers';
-import { match } from './js/models/Matches';
+import Match from './js/models/Matches';
 import Draw from './js/models/Draws';
 
 const state = {};
@@ -18,11 +18,30 @@ const state = {};
 window.addEventListener('load', () => {
   state.participants = new Registration();
   state.participants.retrieveParticipantsFromLocalStorate();
+  state.matches = new Match();
+  state.matches.retrieveMatchesFromLocalStorage();
   if (state.participants.registeredMembers) {
     renderParticipants(state.participants.registeredMembers);
   }
-  console.log(state.participants.registeredMembers);
+  if (Object.entries(state.matches.matches).length > 0) {
+    elements.icon.classList.add('draw-submited');
+  }
 });
+
+function clearItAll() {
+  elements.registerInput.value = '';
+  elements.spouseNameInput.value = '';
+  elements.registerInput.focus();
+  elements.registerInput.classList.remove('inputBlank');
+  elements.spouseNameInput.classList.remove('inputBlank');
+  elements.icon.classList.remove('draw-submited');
+}
+
+function clearMatches() {
+  state.matches.matches = [];
+  state.matches.memberAndSpouse = [];
+  state.matches.members = [];
+}
 
 elements.registerForm.addEventListener('submit', e => {
   e.preventDefault();
@@ -51,13 +70,12 @@ elements.registerForm.addEventListener('submit', e => {
         ? `${memberName} already registered`
         : messageMember;
       displayMessage(finalMessage);
-      const clearMsg = setTimeout(clearMessage, 3000);
-      elements.registerInput.value = '';
-      elements.spouseNameInput.value = '';
-      elements.registerInput.focus();
       renderParticipants(state.participants.registeredMembers);
-      elements.registerInput.classList.remove('inputBlank');
-      elements.spouseNameInput.classList.remove('inputBlank');
+      const clearMsg = setTimeout(clearMessage, 3000);
+      clearItAll();
+      if (state.matches) {
+        clearMatches();
+      }
     }
   } else {
     elements.registerInput.classList.add('inputBlank');
@@ -67,7 +85,6 @@ elements.registerForm.addEventListener('submit', e => {
 
 elements.makeDraws.addEventListener('click', e => {
   e.preventDefault();
-
   const membersAndSpouses = state.participants.registeredMembers.map(member => [
     member.memberName,
     member.spouseName
@@ -79,10 +96,11 @@ elements.makeDraws.addEventListener('click', e => {
 
   // passes array of membersnames, and memberss names + spouses
   if (state.participants.registeredMembers.length > 2) {
-    state.matches = new match(membersAndSpouses, membersNames);
+    state.matches = new Match(membersAndSpouses, membersNames);
     state.matches.assignSantas();
     elements.icon.classList.add('draw-submited');
     drawMessage();
+    clearMyPick();
     setTimeout(() => {
       clearDrawMessage();
     }, 2000);
@@ -99,17 +117,20 @@ elements.seeDrawForm.addEventListener('submit', e => {
     member => member.memberName === santa
   );
 
-  if (state.matches !== undefined && santa.length > 0) {
-    if (isSantaInTheList !== undefined) {
-      state.draws = new Draw(state.matches.matches);
-      clearMyPick();
-      state.draws.findDraw(santa);
-      whoDidIpick(`Congrats, your draw is: ${state.draws.myDraw.picks}`);
-      console.log(elements.seeDrawInput.innerHTML);
-      elements.seeDrawInput.value = '';
+  if (state.matches !== undefined) {
+    if (santa.length > 0) {
+      if (isSantaInTheList !== undefined) {
+        state.draws = new Draw(state.matches.matches);
+        clearMyPick();
+        state.draws.findDraw(santa);
+        whoDidIpick(`Congrats, your draw is: ${state.draws.myDraw.picks}`);
+        elements.seeDrawInput.value = '';
+      } else {
+        clearMyPick();
+        whoDidIpick('Sorry, your name is not in the list');
+      }
     } else {
-      clearMyPick();
-      whoDidIpick('Sorry, your name is not in the list');
+      whoDidIpick('Please, enter your name');
     }
   } else {
     clearMyPick();
@@ -122,7 +143,6 @@ elements.resetBtn.addEventListener('click', e => {
   localStorage.clear();
   state.participants.registeredMembers = [];
   elements.icon.classList.remove('draw-submited');
-
   clearMyPick();
   clearMembers();
 });
