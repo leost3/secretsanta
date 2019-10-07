@@ -1,6 +1,7 @@
 # SECRET SANTA
 
 > Enter the name of all family members and then make the draw! To see who you pick, just enter your name =)
+> There must be at least 4 participants, beacuse if there's 3 persons being 2 of them a couple, one of the couple will always draw the other one.
 
 ## Installation
 

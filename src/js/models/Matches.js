@@ -6,40 +6,63 @@ export default class Match {
   }
 
   assignSantas() {
-    const membersArr = this.members;
+    const membersArr = [...this.members];
     const shuffleArray = arr => arr.sort(() => Math.random() - 0.5);
-    let shuffledArray = shuffleArray(membersArr);
+    let membersArrayShuffled = shuffleArray(membersArr);
 
-    // Checks if spouses were side by side in the array
-    const spousesDrawn = (shuffledArray, members) => {
+    // Divide members array in pairs and checks if spouses were side by side in the array
+    const checkIfSpousesDrawnEachOther = (membersArrayShuffled, members) => {
       const pairs = [];
       const isCouple = [];
-      for (let i = 0; i < shuffledArray.length - 1; i += 2) {
-        pairs.push([shuffledArray[i], shuffledArray[i + 1]]);
+
+      for (let i = 0; i < membersArrayShuffled.length - 1; i += 2) {
+        pairs.push([membersArrayShuffled[i], membersArrayShuffled[i + 1]]);
       }
+      pairs.push([
+        membersArrayShuffled[membersArrayShuffled.length - 1],
+        membersArrayShuffled[0]
+      ]);
+
+      if (members.length % 2 > 0) {
+        pairs.push([
+          membersArrayShuffled[membersArrayShuffled.length - 2],
+          membersArrayShuffled[membersArrayShuffled.length - 1]
+        ]);
+      }
+
       pairs.forEach(pair => {
         const isPair = members.find(
           member => JSON.stringify(member) === JSON.stringify(pair)
         );
         if (isPair !== undefined) isCouple.push(isPair);
       });
-      return isCouple;
-    };
 
+      if (isCouple.length > 0) {
+        return true;
+      }
+      return false;
+    };
     // While in the shuffled array spouses are still paired, array will be shuffled again
-    while (spousesDrawn(shuffledArray, this.memberAndSpouse).length) {
-      shuffledArray = shuffleArray(shuffledArray);
-      if (!spousesDrawn(shuffledArray, this.memberAndSpouse).length) break;
+    while (
+      checkIfSpousesDrawnEachOther(membersArrayShuffled, this.memberAndSpouse)
+    ) {
+      membersArrayShuffled = shuffleArray(membersArrayShuffled);
+      if (
+        !checkIfSpousesDrawnEachOther(
+          membersArrayShuffled,
+          this.memberAndSpouse
+        )
+      )
+        break;
     }
 
-    const matches = shuffledArray.map((arr, i) => {
-      if (i === shuffledArray.length - 1) i = -1;
+    const matches = membersArrayShuffled.map((arr, i) => {
+      if (i === membersArrayShuffled.length - 1) i = -1;
       return {
         santa: arr,
-        picks: shuffledArray[i + 1]
+        picks: membersArrayShuffled[i + 1]
       };
     });
-
     this.matches = matches;
     this.addMatchesToLocalStorage();
     return matches;

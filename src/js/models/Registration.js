@@ -4,6 +4,7 @@ export default class Registration {
   }
 
   registerNewMember(memberName, hasSpouse, spouseName) {
+    // Checks if registered member is already on registeredMembers array (It;s filled when app runs by saved items on localstorage)
     if (
       !this.registeredMembers.filter(member => member.memberName === memberName)
         .length
@@ -30,7 +31,8 @@ export default class Registration {
       }
       this.addMemberToLocalStorage();
     } else {
-      return true;
+      const memberAlreadyExists = true;
+      return memberAlreadyExists;
     }
   }
 

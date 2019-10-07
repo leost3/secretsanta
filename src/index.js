@@ -95,7 +95,7 @@ elements.makeDraws.addEventListener('click', e => {
   );
 
   // passes array of membersnames, and memberss names + spouses
-  if (state.participants.registeredMembers.length > 2) {
+  if (state.participants.registeredMembers.length > 3) {
     state.matches = new Match(membersAndSpouses, membersNames);
     state.matches.assignSantas();
     elements.icon.classList.add('draw-submited');
@@ -105,7 +105,7 @@ elements.makeDraws.addEventListener('click', e => {
       clearDrawMessage();
     }, 2000);
   } else {
-    alert('At least three members have to be registered');
+    alert('At least four members have to be registered');
   }
 });
 
